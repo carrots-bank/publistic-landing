@@ -94,11 +94,15 @@ export default function ScrollReveal({
 
   // Каскадная анимация
   return (
-    <div ref={ref} className={className}>
-      {items.map((child, i) => (
+  <div ref={ref} className={className}>
+    {items.map((child, i) => {
+      // корректный ключ: либо key у элемента, либо индекс
+      const k: React.Key =
+        isValidElement(child) && child.key != null ? child.key : i;
+
+      return (
         <motion.div
-          // используем React.Key, без any
-          key={(isValidElement(child) && child.key) ?? i}
+          key={k}
           initial={{ opacity: 0, y, x }}
           animate={visible ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, y, x }}
           transition={{ duration, delay: getDelay(i), ease }}
@@ -108,7 +112,8 @@ export default function ScrollReveal({
             ? cloneElement(child as React.ReactElement)
             : child}
         </motion.div>
-      ))}
-    </div>
-  );
+      );
+    })}
+  </div>
+);
 }

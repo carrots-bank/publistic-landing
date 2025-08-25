@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <main className="overflow-hidden">
-      <IntroAnimation showOnce />
+      <IntroAnimation />
 
       {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/70 backdrop-blur">
